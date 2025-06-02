@@ -6,6 +6,12 @@
 # dotenv files
 .env
 
+# Project specific
+node_modules/*
+
+# This folder doesn't need to be tracked when only containing auto-generated assets
+*/wwwroot/
+
 # User-specific files
 *.rsuser
 *.suo
