@@ -36,5 +36,11 @@ namespace FinanceApp.Controllers
             // Do nothing and redirect to same page if request is invalid
             return View(expense);
         }
+
+        public IActionResult GetChartData()
+        {
+            var data = _expensesService.GetChartData();
+            return Json(data);
+        }
     }
 }

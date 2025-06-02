@@ -30,3 +30,29 @@
 		</tbody>
 	</table>
 </div>
+
+<h2 class="text-center">Expenses Overview</h2>
+
+<div>
+	<canvas style="width: 50%; display: block; margin-left: auto; margin-right: auto" id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+	const context = document.getElementById("myChart");
+	
+	fetch('/Expenses/GetChartData')
+		.then(response => response.json())
+		.then(data => {
+			new Chart(context, {
+				type: 'pie',
+				data: {
+					labels: data.map(d => d.category),
+					datasets: [{
+						data: data.map(d => d.total),
+					}]
+				}
+			});
+		});
+</script>

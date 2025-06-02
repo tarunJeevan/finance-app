@@ -23,5 +23,18 @@ namespace FinanceApp.Data.Services
             var expenses = await _context.Expenses.ToListAsync();
             return expenses;
         }
+
+        public IQueryable GetChartData()
+        {
+            // Filter expense data into readable JSON object where expenses are aggregated into and grouped by category
+            var data = _context.Expenses
+                .GroupBy(ex => ex.Category)
+                .Select(g => new
+                {
+                    Category = g.Key,
+                    Total = g.Sum(e => e.Amount)
+                });
+            return data;
+        }
     }
 }
