@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Delete an Expense";
+}
+@model IEnumerable<FinanceApp.Models.Expense>
+
+<div class="container">
+    <h2 class="text-center">Remove an Expense</h2>
+
+	<table class="table table-bordered">
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Description</td>
+					<td>$@item.Amount</td>
+					<td>@item.Category</td>
+					<td>@item.Date.ToString("yyyy-MM-dd")</td>
+					<td>@Html.ActionLink("Remove", "DeleteExpense", new { id = item.Id })</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

@@ -36,5 +36,14 @@ namespace FinanceApp.Data.Services
                 });
             return data;
         }
+
+        public async Task RemoveExpenseAsync(int expenseId)
+        {
+            // Retrieve the expense with the matching Id
+            var expense = await _context.Expenses.FindAsync(expenseId);
+            
+            _context.Expenses.Remove(expense!);
+            await _context.SaveChangesAsync();
+        }
     }
 }

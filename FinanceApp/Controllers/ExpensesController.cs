@@ -37,6 +37,18 @@ namespace FinanceApp.Controllers
             return View(expense);
         }
 
+        public async Task<IActionResult> Delete()
+        {
+            var expenses = await _expensesService.GetAllExpensesAsync();
+            return View(expenses);
+        }
+
+        public async Task<IActionResult> DeleteExpense(int id)
+        {
+            await _expensesService.RemoveExpenseAsync(id);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult GetChartData()
         {
             var data = _expensesService.GetChartData();
