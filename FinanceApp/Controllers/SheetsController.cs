@@ -29,7 +29,14 @@ namespace FinanceApp.Controllers
 
             if (sheet == null)
                 return NotFound();
-            return View(sheet);
+
+            // Create new view model to display based on retrieved expense sheet
+            var viewModel = new ExpenseSheetDetailsViewModel
+            {
+                ExpenseSheet = sheet,
+                NewExpense = new Expense { ExpenseSheetId = sheet.Id }
+            };
+            return View(viewModel);
         }
 
         // Create empty expense sheet (view)
@@ -53,15 +60,18 @@ namespace FinanceApp.Controllers
 
         // Add expense to existing expense sheet
         [HttpPost]
-        public async Task<IActionResult> AddExpense(Expense expense, int sheetId)
+        public async Task<IActionResult> AddExpense(ExpenseSheetDetailsViewModel model)
         {
-            if (ModelState.IsValid && expense != null)
+            if (ModelState.IsValid)
             {
-                await _expenseSheetsService.AddExpenseToSheetAsync(sheetId, expense);
+                await _expenseSheetsService.AddExpenseToSheetAsync(model.ExpenseSheet.Id, model.NewExpense);
 
-                return RedirectToAction("Details", new { id = sheetId });
+                return RedirectToAction("Details", new { id = model.NewExpense.ExpenseSheetId });
             }
-            return RedirectToAction("Index"); // TODO: Redirect to Expense creation form
+            // Reload the sheet if model is invalid
+            var sheet = await _expenseSheetsService.GetExpenseSheetByIdAsync(model.ExpenseSheet.Id);
+            model.ExpenseSheet = sheet!;
+            return View("Details", model);
         }
 
         // Remove expense from existing expense sheet

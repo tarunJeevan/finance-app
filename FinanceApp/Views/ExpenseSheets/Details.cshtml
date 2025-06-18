@@ -1,9 +1,9 @@
 ﻿@{
 	ViewData["Title"] = "View Expenses";
 }
-@model FinanceApp.Models.ExpenseSheet
+@model FinanceApp.Models.ExpenseSheetDetailsViewModel
 
-<h2 class="text-center">Expenses for @Model.Title</h2>
+<h2 class="text-center">Expenses for @Model.ExpenseSheet.Title</h2>
 
 <div class="container">
 	@* View expenses section *@
@@ -19,7 +19,7 @@
 		</thead>
 		@* Body *@
 		<tbody>
-			@foreach(var expense in Model.Expenses)
+			@foreach(var expense in Model.ExpenseSheet.Expenses)
 			{
 				<tr>
 					<td>@expense.Description</td>
@@ -31,24 +31,26 @@
 		</tbody>
 	</table>
 	@* Add new expense section *@
-	@* <div class="container">
+	<div class="container">
 		<h2 class="text-center">Add an Expense</h2>
 
-		<form asp-action="Create" method="post">
+		<form asp-controller="Sheets" asp-action="AddExpense" method="post">
+			<input type="hidden" asp-for="ExpenseSheet.Id" />
+			<input type="hidden" asp-for="NewExpense.ExpenseSheetId" />
 			<div>
-				<label asp-for="Description" class="form-label">Add Description</label>
-				<input asp-for="Description" class="form-control" />
+				<label asp-for="NewExpense.Description" class="form-label">Add Description</label>
+				<input asp-for="NewExpense.Description" class="form-control" required />
 			</div>
 			<div>
-				<label asp-for="Amount" class="form-label">Add Amount</label>
-				<input asp-for="Amount" class="form-control" type="number" />
+				<label asp-for="NewExpense.Amount" class="form-label">Add Amount</label>
+				<input asp-for="NewExpense.Amount" class="form-control" type="number" step="0.01" required />
 			</div>
 			<div>
-				<label asp-for="Category" class="form-label">Add Category</label>
-				<input asp-for="Category" class="form-control" />
+				<label asp-for="NewExpense.Category" class="form-label">Add Category</label>
+				<input asp-for="NewExpense.Category" class="form-control" required />
 			</div>
 			<button type="submit" class="btn btn-primary">Add Expense</button>
 			<a asp-action="Index" class="btn btn-secondary">Cancel</a>
 		</form>
-	</div> *@
+	</div>
 </div>
