@@ -18,13 +18,13 @@
 		</thead>
 		@* Body *@
 		<tbody>
-			@foreach(var item in Model)
+			@foreach(var expense in Model)
 			{
 				<tr>
-					<td>@item.Description</td>
-					<td>$@item.Amount</td>
-					<td>@item.Category</td>
-					<td>@item.Date.ToString("yyyy-MM-dd")</td>
+					<td>@expense.Description</td>
+					<td>$@expense.Amount</td>
+					<td>@expense.Category</td>
+					<td>@expense.Date.ToString("yyyy-MM-dd")</td>
 				</tr>
 			}
 		</tbody>

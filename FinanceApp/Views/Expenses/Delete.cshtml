@@ -8,14 +8,16 @@
 
 	<table class="table table-bordered">
 		<tbody>
-			@foreach (var item in Model)
+			@foreach (var expense in Model)
 			{
 				<tr>
-					<td>@item.Description</td>
-					<td>$@item.Amount</td>
-					<td>@item.Category</td>
-					<td>@item.Date.ToString("yyyy-MM-dd")</td>
-					<td>@Html.ActionLink("Remove", "DeleteExpense", new { id = item.Id })</td>
+					<td>@expense.Description</td>
+					<td>$@expense.Amount</td>
+					<td>@expense.Category</td>
+					<td>@expense.Date.ToString("yyyy-MM-dd")</td>
+					<td>
+						<a asp-action="DeleteExpense" asp-route-id="@expense.Id">Delete</a>
+					</td>
 				</tr>
 			}
 		</tbody>

@@ -1,0 +1,54 @@
+﻿@{
+	ViewData["Title"] = "View Expenses";
+}
+@model FinanceApp.Models.ExpenseSheet
+
+<h2 class="text-center">Expenses for @Model.Title</h2>
+
+<div class="container">
+	@* View expenses section *@
+	<table class="table table-bordered">
+		@* Header *@
+		<thead class="table-light">
+			<tr>
+				<th>Description</th>
+				<th>Amount</th>
+				<th>Category</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		@* Body *@
+		<tbody>
+			@foreach(var expense in Model.Expenses)
+			{
+				<tr>
+					<td>@expense.Description</td>
+					<td>$@expense.Amount</td>
+					<td>@expense.Category</td>
+					<td>@expense.Date.ToString("yyyy-MM-dd")</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	@* Add new expense section *@
+	@* <div class="container">
+		<h2 class="text-center">Add an Expense</h2>
+
+		<form asp-action="Create" method="post">
+			<div>
+				<label asp-for="Description" class="form-label">Add Description</label>
+				<input asp-for="Description" class="form-control" />
+			</div>
+			<div>
+				<label asp-for="Amount" class="form-label">Add Amount</label>
+				<input asp-for="Amount" class="form-control" type="number" />
+			</div>
+			<div>
+				<label asp-for="Category" class="form-label">Add Category</label>
+				<input asp-for="Category" class="form-control" />
+			</div>
+			<button type="submit" class="btn btn-primary">Add Expense</button>
+			<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div> *@
+</div>
